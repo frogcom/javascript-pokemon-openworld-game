@@ -1,4 +1,5 @@
 dit is de read me van me javascript game
+je loopt in deze game met w a s d en moet probeeren alle bosses te verslaan die in het hoge gras te vinden zijn
 
 zelf toegevoegt:
 
