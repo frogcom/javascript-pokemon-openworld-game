@@ -1,19 +1,43 @@
-plannen om toe tevoeggen:
+javascript portofolio game. web page
 
-- customasation caracter
+- start screen with information of this project and the website
+- removing al pokemon aspects
+    -delete evrything whats not needed
+        -battles 
+        -sounds
+        -arreas 
+        - obstacles 
+map:
+    -searching for new assets images and sounds 
+    - remake map 
+        -more houses for projects
+        -eatch project an house 
+        -nps to explane the project 
+        -new nps with an sise of 12 by 12 px and not to detailed 
+    -implementing new assets 
+    -making game full screen
 
-- eigen keus op welke map te spelen / starten
+game mecanics:
+    -walking speed fixen 
+    -adding framerate/ gameloop
+    - npc collition and text pop up for project information
+    -
 
-- de boot kunnen gebruiken om naar een andere map te gaan
+
+
+
+
+
+
+
+
+
+
+
+
+
+- de boot kunnen gebruiken om naar andere locations te gaan
     - locatie voor collition al toegevoegt
-
-- battles toevoeggen // bezig
-    battles toevoeggen // done
-    bug fixen battles // bezig
-
-- door battles uit te voeren bages kunnen verzamelen
-
-- copanion eigen keuze en upgrades
 
 - npcs
     - npcs toevoeggen // done
@@ -22,8 +46,3 @@ plannen om toe tevoeggen:
 
 - css optimizen en verbeteren en uit html halen // bezig
 
-- fix bug dat de game ronddraait met battle tijdens de attacs en daardoor daarna de map niet goed laat zien
-
-- als je tegen de border bij het water komt val je in het water
-
-- 

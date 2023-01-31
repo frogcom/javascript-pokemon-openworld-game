@@ -1,31 +1,31 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
 
-canvas.width = 1024;
-canvas.height = 576;
+// canvas.width = 100vw;
+// canvas.height = 1024;
+
+canvas.width = document.body.clientWidth; //document.width is obsolete
+canvas.height = document.body.clientHeight; //document.height is obsolete
+canvasW = canvas.width;
+canvasH = canvas.height;
 
 const collisionsMap = [];
 for (let i = 0; i < collisions.length; i += 70) {
   collisionsMap.push(collisions.slice(i, 70 + i));
 }
 
-const battleZonesMap = [];
-for (let i = 0; i < battleZonesData.length; i += 70) {
-  battleZonesMap.push(battleZonesData.slice(i, 70 + i));
-}
-
 const charactersMap = [];
 for (let i = 0; i < charactersMapData.length; i += 70) {
   charactersMap.push(charactersMapData.slice(i, 70 + i));
 }
-const travelZones = [];
-for (let i = 0; i < travelZonesData.length; i += 70) {
-  travelZones.push(travelZonesData.slice(i, 70 + i));
-}
+// const travelZones = [];
+// for (let i = 0; i < travelZonesData.length; i += 70) {
+//   travelZones.push(travelZonesData.slice(i, 70 + i));
+// }
 const boundaries = [];
 const offset = {
-  x: -735,
-  y: -650,
+  x: -285,
+  y: -450,
 };
 
 collisionsMap.forEach((row, i) => {
@@ -42,35 +42,35 @@ collisionsMap.forEach((row, i) => {
   });
 });
 
-const battleZones = [];
+// const battleZones = [];
 
-battleZonesMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol === 1025)
-      battleZones.push(
-        new Boundary({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y,
-          },
-        })
-      );
-  });
-});
+// battleZonesMap.forEach((row, i) => {
+//   row.forEach((symbol, j) => {
+//     if (symbol === 1025)
+//       battleZones.push(
+//         new Boundary({
+//           position: {
+//             x: j * Boundary.width + offset.x,
+//             y: i * Boundary.height + offset.y,
+//           },
+//         })
+//       );
+//   });
+// });
 
-travelZones.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol === 1025)
-      battleZones.push(
-        new Boundary({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y,
-          },
-        })
-      );
-  });
-});
+// travelZones.forEach((row, i) => {
+//   row.forEach((symbol, j) => {
+//     if (symbol === 1025)
+//       battleZones.push(
+//         new Boundary({
+//           position: {
+//             x: j * Boundary.width + offset.x,
+//             y: i * Boundary.height + offset.y,
+//           },
+//         })
+//       );
+//   });
+// });
 
 const characters = [];
 const villagerImg = new Image();
@@ -150,8 +150,8 @@ playerRightImage.src = "./assets/img/playerRight.png";
 
 const player = new Sprite({
   position: {
-    x: canvas.width / 2 - 192 / 4 / 2,
-    y: canvas.height / 2 - 68 / 2,
+    x: canvasW / 2 - 192 / 4 / 2,
+    y: canvasH / 2 - 68 / 2,
   },
   image: playerDownImage,
   frames: {
@@ -201,21 +201,21 @@ const movables = [
   background,
   ...boundaries,
   foreground,
-  ...battleZones,
+  // ...battleZones,
   ...characters,
 ];
 const renderables = [
   background,
   ...boundaries,
-  ...battleZones,
+  // ...battleZones,
   ...characters,
   player,
   foreground,
 ];
 
-const battle = {
-  initiated: false,
-};
+// const battle = {
+//   initiated: false,
+// };
 
 function animate() {
   const animationId = window.requestAnimationFrame(animate);
@@ -226,64 +226,9 @@ function animate() {
   let moving = true;
   player.animate = false;
 
-  if (battle.initiated) return;
+  // if (battle.initiated) return;
 
   // activate a battle
-  if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
-    for (let i = 0; i < battleZones.length; i++) {
-      const battleZone = battleZones[i];
-      const overlappingArea =
-        (Math.min(
-          player.position.x + player.width,
-          battleZone.position.x + battleZone.width
-        ) -
-          Math.max(player.position.x, battleZone.position.x)) *
-        (Math.min(
-          player.position.y + player.height,
-          battleZone.position.y + battleZone.height
-        ) -
-          Math.max(player.position.y, battleZone.position.y));
-      if (
-        rectangularCollision({
-          rectangle1: player,
-          rectangle2: battleZone,
-        }) &&
-        overlappingArea > (player.width * player.height) / 2 &&
-        Math.random() < 0.1
-      ) {
-        // deactivate current animation loop
-        window.cancelAnimationFrame(animationId);
-
-        audio.Map.stop();
-        audio.initBattle.play();
-        audio.battle.play();
-
-        battle.initiated = true;
-        gsap.to("#overlappingDiv", {
-          opacity: 1,
-          repeat: 3,
-          yoyo: true,
-          duration: 0.4,
-          onComplete() {
-            gsap.to("#overlappingDiv", {
-              opacity: 1,
-              duration: 0.4,
-              onComplete() {
-                // activate a new animation loop
-                initBattle();
-                animateBattle();
-                gsap.to("#overlappingDiv", {
-                  opacity: 0,
-                  duration: 0.4,
-                });
-              },
-            });
-          },
-        });
-        break;
-      }
-    }
-  }
 
   if (keys.w.pressed && lastKey === "w") {
     player.animate = true;
@@ -469,3 +414,4 @@ addEventListener("click", () => {
     clicked = true;
   }
 });
+animate();
